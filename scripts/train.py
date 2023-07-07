@@ -45,7 +45,7 @@ def dataFile():
     xTest = xTest.reshape((xTest.shape[0], xTest.shape[1], 1))
     return xTrain, yTrain, xTest, yTest, numClasses2
 
-#xTrain, yTrain, xTest, yTest, numClasses = dataFile()
+xTrain, yTrain, xTest, yTest, numClasses = dataFile()
 
 def nnModel(inputShape, lenClasses):
     inputLayer = tf.keras.layers.Input(inputShape)
@@ -88,12 +88,14 @@ model.compile(
     loss="sparse_categorical_crossentropy",
     metrics=["sparse_categorical_accuracy"],
 )
-history = model.fit(
-    xTrain,
-    [yTrain],
-    batch_size=batch_size,
-    epochs=epochs,
-    callbacks=callbacks,
-    validation_split=0.2,
-    verbose=1,
-)
+
+if __name__ == '__main__':
+    history = model.fit(
+        xTrain,
+        [yTrain],
+        batch_size=batch_size,
+        epochs=epochs,
+        callbacks=callbacks,
+        validation_split=0.2,
+        verbose=1,
+    )
